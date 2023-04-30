@@ -9,15 +9,14 @@ const io = new Server(httpServer);
 io.on("connection",(socket)=>{
     console.log(`A USER CONNECTED, socketId: ${socket.id}`);
 
-    setInterval(()=>{
-     socket.emit("server=>client")
-    },2000)
-
     // setInterval(()=>{
     //     socket.emit("server=>client2222")
     //    },500)
-    socket.on("client=>server",()=>{
-        console.log("client=>server event captured")
+    socket.on("msg_send",(data)=>{
+        console.log(data)
+
+        // io.emit("msg_received",data)
+        socket.broadcast.emit("msg_received",data)
     })
 });
 
